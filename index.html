@@ -337,8 +337,8 @@
         <td>4</td>
         <td>本番デプロイ（commit 6b8dbcc0）<br><small style="color:#888;">スクレイピング安全対策 + Joomカテゴリ管理UI + 在庫自動更新</small></td>
         <td>小〜中</td>
-        <td>SSH鍵設定</td>
-        <td><span class="badge badge-wait">SSH鍵待ち</span></td>
+        <td>なし</td>
+        <td><span class="badge badge-done">完了 (Coolify経由)</span></td>
       </tr>
       <tr>
         <td>5</td>
@@ -351,9 +351,8 @@
   </table>
 
   <div class="alert alert-warning">
-    <strong>ブロッカー (2件):</strong><br>
-    1. <strong>SSH鍵設定</strong>: GitHub ActionsのSSH_PRIVATE_KEYシークレットが未設定のためデプロイ不可。DEPLOY_HOST/DEPLOY_USERは設定済み<br>
-    2. <strong>Smartproxy契約</strong>: https://smartproxy.com/ （月額約$90）。コード側はPROXY_HOST/PORT/USER/PASSを設定するだけで接続可能
+    <strong>残ブロッカー (1件):</strong><br>
+    <strong>Smartproxy契約</strong>: https://smartproxy.com/ （月額約$90）。コード側はPROXY_HOST/PORT/USER/PASSを設定するだけで接続可能。デプロイは完了済み。
   </div>
 </section>
 
