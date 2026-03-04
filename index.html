@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAKUDA - プロジェクトダッシュボード</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', 'Hiragino Sans', sans-serif; background: #0a0a0a; color: #e0e0e0; line-height: 1.6; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* Header */
+  header { text-align: center; padding: 40px 20px; border-bottom: 2px solid #c9a84c; }
+  header h1 { font-size: 2.5em; color: #c9a84c; letter-spacing: 4px; }
+  header p { color: #888; margin-top: 8px; }
+  .last-updated { color: #c9a84c; font-size: 0.9em; margin-top: 12px; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; background: #111; border-bottom: 1px solid #333; padding: 12px 0; z-index: 100; }
+  nav .container { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  nav a { color: #c9a84c; text-decoration: none; padding: 6px 14px; border: 1px solid #333; border-radius: 6px; font-size: 0.85em; transition: all 0.2s; }
+  nav a:hover { background: #c9a84c; color: #000; }
+
+  /* Sections */
+  section { padding: 40px 0; border-bottom: 1px solid #222; }
+  h2 { color: #c9a84c; font-size: 1.5em; margin-bottom: 20px; padding-left: 12px; border-left: 4px solid #c9a84c; }
+  h3 { color: #ddd; font-size: 1.1em; margin: 20px 0 10px; }
+
+  /* Cards */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .card { background: #1a1a1a; border: 1px solid #333; border-radius: 10px; padding: 20px; }
+  .card h3 { margin-top: 0; color: #c9a84c; font-size: 1em; }
+
+  /* Status badges */
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.8em; font-weight: bold; }
+  .badge-done { background: #065f46; color: #6ee7b7; }
+  .badge-partial { background: #78350f; color: #fbbf24; }
+  .badge-todo { background: #7f1d1d; color: #fca5a5; }
+  .badge-wait { background: #1e3a5f; color: #93c5fd; }
+  .badge-critical { background: #dc2626; color: #fff; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+  th { background: #1a1a1a; color: #c9a84c; text-align: left; padding: 10px 12px; border-bottom: 2px solid #c9a84c; }
+  td { padding: 10px 12px; border-bottom: 1px solid #222; }
+  tr:hover { background: #1a1a1a; }
+
+  /* Progress bar */
+  .progress-container { background: #333; border-radius: 8px; height: 24px; margin: 8px 0; position: relative; }
+  .progress-bar { height: 100%; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: bold; }
+  .progress-green { background: linear-gradient(90deg, #065f46, #10b981); }
+  .progress-yellow { background: linear-gradient(90deg, #78350f, #f59e0b); }
+  .progress-red { background: linear-gradient(90deg, #7f1d1d, #ef4444); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 30px; }
+  .timeline::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #333; }
+  .timeline-item { position: relative; margin-bottom: 24px; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid #c9a84c; background: #0a0a0a; }
+  .timeline-item.done::before { background: #10b981; border-color: #10b981; }
+  .timeline-item.current::before { background: #f59e0b; border-color: #f59e0b; animation: pulse 2s infinite; }
+  .timeline-item.future::before { background: #333; border-color: #555; }
+
+  /* Alert box */
+  .alert { padding: 16px 20px; border-radius: 8px; margin: 16px 0; }
+  .alert-danger { background: #7f1d1d; border: 1px solid #dc2626; }
+  .alert-warning { background: #78350f; border: 1px solid #f59e0b; }
+  .alert-info { background: #1e3a5f; border: 1px solid #3b82f6; }
+
+  /* Footer */
+  footer { text-align: center; padding: 40px 20px; color: #555; font-size: 0.85em; }
+  footer a { color: #c9a84c; }
+
+  /* Links */
+  .plan-links { display: flex; gap: 12px; flex-wrap: wrap; margin: 16px 0; }
+  .plan-link { display: inline-block; padding: 8px 16px; background: #1a1a1a; border: 1px solid #c9a84c; border-radius: 6px; color: #c9a84c; text-decoration: none; font-size: 0.9em; }
+  .plan-link:hover { background: #c9a84c; color: #000; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>RAKUDA</h1>
+  <p>越境EC自動化システム - プロジェクトダッシュボード</p>
+  <div class="last-updated">最終更新: 2026-03-04</div>
+</header>
+
+<nav>
+  <div class="container">
+    <a href="#overview">全体進捗</a>
+    <a href="#channels">販売チャネル</a>
+    <a href="#scraping">スクレイピング安全対策</a>
+    <a href="#remaining">残タスク</a>
+    <a href="#schedule">スケジュール</a>
+    <a href="#issues">既知の問題</a>
+    <a href="#plans">計画書リンク</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ===== 全体進捗 ===== -->
+<section id="overview">
+  <h2>全体進捗</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>出品機能</h3>
+      <div class="progress-container">
+        <div class="progress-bar progress-green" style="width: 90%;">90%</div>
+      </div>
+      <p>eBay/Joom/Shopify 全て出品成功済み</p>
+    </div>
+    <div class="card">
+      <h3>注文〜発送</h3>
+      <div class="progress-container">
+        <div class="progress-bar progress-yellow" style="width: 70%;">70%</div>
+      </div>
+      <p>API実装済み。在庫自動更新がeBay/Joomで未接続</p>
+    </div>
+    <div class="card">
+      <h3>スクレイピング安全対策</h3>
+      <div class="progress-container">
+        <div class="progress-bar progress-red" style="width: 15%;">15%</div>
+      </div>
+      <p>計画書の設計が未実装。アカウントBAN危険</p>
+    </div>
+    <div class="card">
+      <h3>インフラ・品質</h3>
+      <div class="progress-container">
+        <div class="progress-bar progress-green" style="width: 95%;">95%</div>
+      </div>
+      <p>本番デプロイ済み、テスト2,342件通過、TSエラー0件</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 販売チャネル ===== -->
+<section id="channels">
+  <h2>販売チャネル別ステータス</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>チャネル</th>
+        <th>認証</th>
+        <th>出品</th>
+        <th>注文取得</th>
+        <th>在庫更新</th>
+        <th>発送</th>
+        <th>総合</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>eBay</strong></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">実装済</span></td>
+        <td><span class="badge badge-partial">要接続</span></td>
+        <td><span class="badge badge-done">実装済</span></td>
+        <td><span class="badge badge-partial">85%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Joom</strong></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">実装済</span></td>
+        <td><span class="badge badge-partial">要接続</span></td>
+        <td><span class="badge badge-done">実装済</span></td>
+        <td><span class="badge badge-partial">85%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Shopify</strong></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">100%</span></td>
+      </tr>
+      <tr>
+        <td><strong>Etsy</strong></td>
+        <td><span class="badge badge-wait">承認待ち</span></td>
+        <td><span class="badge badge-todo">未テスト</span></td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td><span class="badge badge-wait">保留</span></td>
+      </tr>
+      <tr>
+        <td><strong>Depop</strong></td>
+        <td><span class="badge badge-wait">返信待ち</span></td>
+        <td><span class="badge badge-todo">未テスト</span></td>
+        <td>-</td>
+        <td>-</td>
+        <td>-</td>
+        <td><span class="badge badge-wait">保留</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>仕入れ先（スクレイピング対応）</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>サイト</th>
+        <th>スクレイピング</th>
+        <th>在庫チェック</th>
+        <th>安全対策</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>メルカリ</td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-critical">未実装</span></td></tr>
+      <tr><td>ヤフオク</td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-critical">未実装</span></td></tr>
+      <tr><td>PayPayフリマ</td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-critical">未実装</span></td></tr>
+      <tr><td>楽マ</td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-critical">未実装</span></td></tr>
+      <tr><td>楽天</td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-critical">未実装</span></td></tr>
+      <tr><td>Amazon JP</td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-done">実装済</span></td><td><span class="badge badge-critical">未実装</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== スクレイピング安全対策 ===== -->
+<section id="scraping">
+  <h2>スクレイピング安全対策（計画書 vs 現状）</h2>
+
+  <div class="alert alert-danger">
+    <strong>警告:</strong> 計画書で必須とされた安全対策が全て未実装。このまま本格運用すると仕入れ先アカウントがBANされるリスクが高い。
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>項目</th>
+        <th>計画書の設計</th>
+        <th>現状</th>
+        <th>ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>住宅用Proxy</td>
+        <td>Smartproxy必須（月額$90）</td>
+        <td>未契約・未実装</td>
+        <td><span class="badge badge-critical">未実装</span></td>
+      </tr>
+      <tr>
+        <td>3セッション分散</td>
+        <td>10:12 / 15:08 / 21:15 + ±30分ジッター</td>
+        <td>cronあり、ジッターなし</td>
+        <td><span class="badge badge-partial">不完全</span></td>
+      </tr>
+      <tr>
+        <td>User-Agentローテーション</td>
+        <td>複数UAからランダム選択</td>
+        <td>固定1つ</td>
+        <td><span class="badge badge-critical">未実装</span></td>
+      </tr>
+      <tr>
+        <td>Stealthプラグイン</td>
+        <td>HeadlessChrome検出回避</td>
+        <td>素のPuppeteer</td>
+        <td><span class="badge badge-critical">未実装</span></td>
+      </tr>
+      <tr>
+        <td>ブラウザプロファイル永続化</td>
+        <td>Cookie蓄積でTrust Score向上</td>
+        <td>毎回使い捨て</td>
+        <td><span class="badge badge-critical">未実装</span></td>
+      </tr>
+      <tr>
+        <td>緊急停止</td>
+        <td>Ban率5%超/エラー率20%超/CAPTCHA10%超で停止</td>
+        <td>なし</td>
+        <td><span class="badge badge-critical">未実装</span></td>
+      </tr>
+      <tr>
+        <td>CAPTCHA対応</td>
+        <td>検出→Discord通知→人間介入</td>
+        <td>検出のみ、通知なし</td>
+        <td><span class="badge badge-partial">不完全</span></td>
+      </tr>
+      <tr>
+        <td>段階的拡大</td>
+        <td>50→200→500 商品/日</td>
+        <td>いきなり50件バッチ</td>
+        <td><span class="badge badge-critical">未実装</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Ban確率（計画書の数値）</h3>
+  <table>
+    <thead><tr><th>実行方式</th><th>Bot検知確率</th><th>1年生存率</th></tr></thead>
+    <tbody>
+      <tr><td>40分で一気に500商品</td><td style="color:#ef4444;font-weight:bold;">90%</td><td style="color:#ef4444;">0%</td></tr>
+      <tr><td>3セッション分散</td><td style="color:#10b981;font-weight:bold;">0.3%</td><td>33%</td></tr>
+      <tr><td>3セッション + 学習後</td><td style="color:#10b981;font-weight:bold;">0.1%</td><td style="color:#10b981;">69%</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== 残タスク ===== -->
+<section id="remaining">
+  <h2>運用開始までの残タスク</h2>
+
+  <table>
+    <thead>
+      <tr><th>#</th><th>タスク</th><th>規模</th><th>依存</th><th>ステータス</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>eBay/Joom注文時の在庫自動更新<br><small style="color:#888;">InventoryEvent記録 + Product.status更新（Shopifyの実装を転用）</small></td>
+        <td>小</td>
+        <td>なし</td>
+        <td><span class="badge badge-todo">未着手</span></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>注文同期の自動スケジューラー<br><small style="color:#888;">order-sync.tsは存在するが自動実行トリガーがない</small></td>
+        <td>小</td>
+        <td>なし</td>
+        <td><span class="badge badge-todo">未着手</span></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>スクレイピング安全対策<br><small style="color:#888;">Smartproxy / Stealth / ジッター / 緊急停止 / 段階的拡大</small></td>
+        <td>中</td>
+        <td>Smartproxy契約</td>
+        <td><span class="badge badge-todo">未着手</span></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>本番デプロイ（commit 8817a754）<br><small style="color:#888;">Joomカテゴリマッピング管理UI + 削除ボタン</small></td>
+        <td>小〜中</td>
+        <td>なし</td>
+        <td><span class="badge badge-todo">未着手</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="alert alert-warning">
+    <strong>ユーザー作業:</strong> タスク3の直前にSmartproxy（https://smartproxy.com/）の契約が必要です。月額約$90。
+  </div>
+</section>
+
+<!-- ===== スケジュール ===== -->
+<section id="schedule">
+  <h2>スケジュール（実績ベース見積もり）</h2>
+
+  <div class="alert alert-info">
+    見積もりは過去の実績に基づいています。本番環境作業は AI工数×3 のバッファを適用。
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item current">
+      <h3>Week 1: eBay/Joom注文処理の補完</h3>
+      <p>タスク1-2。Shopifyの実装をeBay/Joomに転用。</p>
+      <p><small style="color:#888;">AI工数: 0.5日 × バッファ1.5 = 1〜2日</small></p>
+    </div>
+    <div class="timeline-item future">
+      <h3>Week 1-2: スクレイピング安全対策</h3>
+      <p>タスク3。Proxy統合 + Stealth + ジッター + 緊急停止。</p>
+      <p><small style="color:#888;">AI工数: 1.4日 × バッファ2.0 = 2〜3日</small></p>
+    </div>
+    <div class="timeline-item future">
+      <h3>Week 2: 本番デプロイ + テスト</h3>
+      <p>タスク4。最新コードをVultrに反映、動作確認。</p>
+      <p><small style="color:#888;">AI工数: 0.5日 × バッファ3.0 = 1〜2日（デプロイは過去+300%乖離）</small></p>
+    </div>
+    <div class="timeline-item future">
+      <h3>Week 2-3: 想定外の問題対応</h3>
+      <p>過去の実績から必ず発生。2〜3日のバッファ。</p>
+    </div>
+    <div class="timeline-item future">
+      <h3>Week 3: 運用開始</h3>
+      <p>eBay/Joomで実際に出品開始。段階的拡大（50商品/日から）。</p>
+    </div>
+  </div>
+
+  <h3>見積もり精度（過去実績）</h3>
+  <table>
+    <thead><tr><th>作業種類</th><th>過去の精度</th><th>適用バッファ</th></tr></thead>
+    <tbody>
+      <tr><td>Codexによるコード生成</td><td>高い（±20%）</td><td>×1.2</td></tr>
+      <tr><td>API統合・テスト</td><td>普通（±50%）</td><td>×1.5</td></tr>
+      <tr><td>本番デプロイ・インフラ</td><td style="color:#ef4444;">低い（±200%）</td><td>×3.0</td></tr>
+      <tr><td>DBマイグレーション</td><td style="color:#ef4444;">低い（影響範囲不明）</td><td>×2.5</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== 既知の問題 ===== -->
+<section id="issues">
+  <h2>既知の問題と教訓（上位5件）</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <h3>1. Prisma enum import混在</h3>
+      <p>@rakuda/database と @prisma/client が混在 → TSエラー316件</p>
+      <p style="color:#10b981;margin-top:8px;"><strong>対策:</strong> ci.ymlにprisma generate追加済み</p>
+    </div>
+    <div class="card">
+      <h3>2. Coolify NODE_ENV問題</h3>
+      <p>NODE_ENV=productionがビルド時に渡される → devDependenciesスキップ</p>
+      <p style="color:#10b981;margin-top:8px;"><strong>対策:</strong> Dockerfileで NODE_ENV=development npm ci</p>
+    </div>
+    <div class="card">
+      <h3>3. マイグレーション実行漏れ</h3>
+      <p>コードは新スキーマ参照、本番DBは旧スキーマ</p>
+      <p style="color:#f59e0b;margin-top:8px;"><strong>対策:</strong> デプロイ手順にマイグレーション必須化</p>
+    </div>
+    <div class="card">
+      <h3>4. sourceType大文字小文字</h3>
+      <p>MERCARI vs mercari → フィルタ失敗、クラッシュ</p>
+      <p style="color:#10b981;margin-top:8px;"><strong>対策:</strong> 全レイヤーUPPERCASE統一済み</p>
+    </div>
+    <div class="card">
+      <h3>5. Coolifyデプロイstuck</h3>
+      <p>in_progressで永遠に止まる</p>
+      <p style="color:#10b981;margin-top:8px;"><strong>対策:</strong> POST /stop APIで復旧、concurrent_builds=1</p>
+    </div>
+  </div>
+
+  <p style="margin-top:16px;color:#888;">全20件の詳細: <a href="https://github.com/naokijodan/rakuda" style="color:#c9a84c;">docs/KNOWN_ISSUES.md</a></p>
+</section>
+
+<!-- ===== 計画書リンク ===== -->
+<section id="plans">
+  <h2>計画書・設計書リンク</h2>
+
+  <div class="plan-links">
+    <a class="plan-link" href="https://naokijodan.github.io/auto-listing-system-plan/" target="_blank">自動出品システム設計計画書</a>
+    <a class="plan-link" href="https://naokijodan.github.io/resale-automation-design/" target="_blank">転売自動化システム設計書</a>
+    <a class="plan-link" href="https://naokijodan.github.io/rakuda-presentation/" target="_blank">RAKUDAプレゼンテーション</a>
+  </div>
+
+  <h3>3者協議の合意事項</h3>
+  <table>
+    <thead><tr><th>項目</th><th>合意内容</th></tr></thead>
+    <tbody>
+      <tr><td>アーキテクチャ</td><td>RAKUDAの現行構成（VPS + Puppeteer + BullMQ）を維持。計画書2のExtension Bridge統合は不要</td></tr>
+      <tr><td>安全対策</td><td>計画書2の安全設計（Proxy / Stealth / ジッター / 緊急停止）を現行アーキテクチャに移植</td></tr>
+      <tr><td>Proxyサービス</td><td>Smartproxy（住宅用IP、月額$90）</td></tr>
+      <tr><td>運用方式</td><td>VPS上の完全サーバーサイド + CAPTCHA時Discord通知で人間介入</td></tr>
+      <tr><td>優先順位</td><td>注文処理補完 → スクレイピング安全対策 → 本番デプロイ → 運用開始</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== 本番環境 ===== -->
+<section id="infra">
+  <h2>本番環境</h2>
+  <div class="card-grid">
+    <div class="card">
+      <h3>VPS</h3>
+      <p>Vultr Tokyo<br>3vCPU / 8GB RAM / 256GB<br>$48/月<br>IP: 45.32.28.61</p>
+    </div>
+    <div class="card">
+      <h3>サービス</h3>
+      <p>API: api.rakuda.dev <span class="badge badge-done">稼働中</span><br>
+         Web: rakuda.dev <span class="badge badge-done">稼働中</span><br>
+         Worker: Docker + systemd <span class="badge badge-done">稼働中</span></p>
+    </div>
+    <div class="card">
+      <h3>データベース</h3>
+      <p>PostgreSQL v16 <span class="badge badge-done">healthy</span><br>
+         Redis v7 <span class="badge badge-done">healthy</span><br>
+         バックアップ: 毎日3:00 UTC</p>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-04</p>
+  <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
+  <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
+</footer>
+
+</body>
+</html>
