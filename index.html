@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-04 (Session 2) (Session 2)</div>
+  <div class="last-updated">最終更新: 2026-03-04 (Session 3)</div>
 </header>
 
 <nav>
@@ -123,9 +123,9 @@
     <div class="card">
       <h3>スクレイピング安全対策</h3>
       <div class="progress-container">
-        <div class="progress-bar progress-red" style="width: 15%;">15%</div>
+        <div class="progress-bar progress-yellow" style="width: 85%;">85%</div>
       </div>
-      <p>計画書の設計が未実装。アカウントBAN危険</p>
+      <p>Stealth/UA回転/Circuit Breaker/CAPTCHA検出/ジッター/段階的拡大 実装済（6b8dbcc0）。Smartproxy契約待ち</p>
     </div>
     <div class="card">
       <h3>インフラ・品質</h3>
@@ -227,8 +227,8 @@
 <section id="scraping">
   <h2>スクレイピング安全対策（計画書 vs 現状）</h2>
 
-  <div class="alert alert-danger">
-    <strong>警告:</strong> 計画書で必須とされた安全対策が全て未実装。このまま本格運用すると仕入れ先アカウントがBANされるリスクが高い。
+  <div class="alert alert-info">
+    <strong>進捗:</strong> コード側の安全対策は8項目中7項目実装完了（6b8dbcc0）。残りはSmartproxy契約のみ。
   </div>
 
   <table>
@@ -244,50 +244,50 @@
       <tr>
         <td>住宅用Proxy</td>
         <td>Smartproxy必須（月額$90）</td>
-        <td>未契約・未実装</td>
-        <td><span class="badge badge-critical">未実装</span></td>
+        <td>コード対応済（PROXY_URL/USERNAME/PASSWORD）。契約待ち</td>
+        <td><span class="badge badge-wait">外部待ち</span></td>
       </tr>
       <tr>
         <td>3セッション分散</td>
         <td>10:12 / 15:08 / 21:15 + ±30分ジッター</td>
-        <td>cronあり、ジッターなし</td>
-        <td><span class="badge badge-partial">不完全</span></td>
+        <td>cron + ±30分ジッター実装済</td>
+        <td><span class="badge badge-done">完了</span></td>
       </tr>
       <tr>
         <td>User-Agentローテーション</td>
         <td>複数UAからランダム選択</td>
-        <td>固定1つ</td>
-        <td><span class="badge badge-critical">未実装</span></td>
+        <td>12種UA + ビューポート5種ランダム</td>
+        <td><span class="badge badge-done">完了</span></td>
       </tr>
       <tr>
         <td>Stealthプラグイン</td>
         <td>HeadlessChrome検出回避</td>
-        <td>素のPuppeteer</td>
-        <td><span class="badge badge-critical">未実装</span></td>
+        <td>puppeteer-extra + stealth plugin</td>
+        <td><span class="badge badge-done">完了</span></td>
       </tr>
       <tr>
         <td>ブラウザプロファイル永続化</td>
         <td>Cookie蓄積でTrust Score向上</td>
-        <td>毎回使い捨て</td>
-        <td><span class="badge badge-critical">未実装</span></td>
+        <td>BROWSER_PROFILE_DIR対応</td>
+        <td><span class="badge badge-done">完了</span></td>
       </tr>
       <tr>
-        <td>緊急停止</td>
+        <td>緊急停止（Circuit Breaker）</td>
         <td>Ban率5%超/エラー率20%超/CAPTCHA10%超で停止</td>
-        <td>なし</td>
-        <td><span class="badge badge-critical">未実装</span></td>
+        <td>Redis ZSET + CLOSED/OPEN/HALF_OPEN状態機械 + AlertManager統合</td>
+        <td><span class="badge badge-done">完了</span></td>
       </tr>
       <tr>
         <td>CAPTCHA対応</td>
         <td>検出→Discord通知→人間介入</td>
-        <td>検出のみ、通知なし</td>
-        <td><span class="badge badge-partial">不完全</span></td>
+        <td>全6スクレイパーに共通CAPTCHA/ブロック検出統合</td>
+        <td><span class="badge badge-done">完了</span></td>
       </tr>
       <tr>
         <td>段階的拡大</td>
         <td>50→200→500 商品/日</td>
-        <td>いきなり50件バッチ</td>
-        <td><span class="badge badge-critical">未実装</span></td>
+        <td>Redis日次カウント + 3フェーズ段階拡大</td>
+        <td><span class="badge badge-done">完了</span></td>
       </tr>
     </tbody>
   </table>
@@ -331,7 +331,7 @@
         <td>スクレイピング安全対策<br><small style="color:#888;">Smartproxy / Stealth / ジッター / 緊急停止 / 段階的拡大</small></td>
         <td>中</td>
         <td>Smartproxy契約</td>
-        <td><span class="badge badge-todo">未着手</span></td>
+        <td><span class="badge badge-partial">85% (6b8dbcc0)</span></td>
       </tr>
       <tr>
         <td>4</td>
@@ -344,7 +344,7 @@
   </table>
 
   <div class="alert alert-warning">
-    <strong>ユーザー作業:</strong> タスク3の直前にSmartproxy（https://smartproxy.com/）の契約が必要です。月額約$90。
+    <strong>ユーザー作業:</strong> Smartproxy（https://smartproxy.com/）の契約が必要です（月額約$90）。コード側はPROXY_URL/PROXY_USERNAME/PROXY_PASSWORDを設定するだけで接続可能。
   </div>
 </section>
 
@@ -362,10 +362,10 @@
       <p>タスク1-2完了。InventoryEvent + Product.status='SOLD'追加、スケジューラー確認済み。</p>
       <p><small style="color:#10b981;">完了: 2026-03-04 commit 07d94f26</small></p>
     </div>
-    <div class="timeline-item current">
-      <h3>Week 1-2: スクレイピング安全対策</h3>
-      <p>タスク3。Proxy統合 + Stealth + ジッター + 緊急停止。</p>
-      <p><small style="color:#888;">AI工数: 1.4日 × バッファ2.0 = 2〜3日</small></p>
+    <div class="timeline-item done">
+      <h3>Week 1-2: スクレイピング安全対策 ✅（85%）</h3>
+      <p>タスク3。Stealth/UA回転/ジッター/Circuit Breaker/CAPTCHA検出/段階的拡大 実装完了。Smartproxy契約待ちのみ残存。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-04 commit 6b8dbcc0</small></p>
     </div>
     <div class="timeline-item future">
       <h3>Week 2: 本番デプロイ + テスト</h3>
@@ -478,7 +478,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-04 (Session 2)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-04 (Session 3)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
