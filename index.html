@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-04</div>
+  <div class="last-updated">最終更新: 2026-03-04 (Session 2) (Session 2)</div>
 </header>
 
 <nav>
@@ -116,9 +116,9 @@
     <div class="card">
       <h3>注文〜発送</h3>
       <div class="progress-container">
-        <div class="progress-bar progress-yellow" style="width: 70%;">70%</div>
+        <div class="progress-bar progress-green" style="width: 90%;">90%</div>
       </div>
-      <p>API実装済み。在庫自動更新がeBay/Joomで未接続</p>
+      <p>eBay/Joom在庫自動更新接続済み（07d94f26）。定期同期スケジューラーも稼働中</p>
     </div>
     <div class="card">
       <h3>スクレイピング安全対策</h3>
@@ -158,19 +158,19 @@
         <td><strong>eBay</strong></td>
         <td><span class="badge badge-done">完了</span></td>
         <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
         <td><span class="badge badge-done">実装済</span></td>
-        <td><span class="badge badge-partial">要接続</span></td>
-        <td><span class="badge badge-done">実装済</span></td>
-        <td><span class="badge badge-partial">85%</span></td>
+        <td><span class="badge badge-done">95%</span></td>
       </tr>
       <tr>
         <td><strong>Joom</strong></td>
         <td><span class="badge badge-done">完了</span></td>
         <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
+        <td><span class="badge badge-done">完了</span></td>
         <td><span class="badge badge-done">実装済</span></td>
-        <td><span class="badge badge-partial">要接続</span></td>
-        <td><span class="badge badge-done">実装済</span></td>
-        <td><span class="badge badge-partial">85%</span></td>
+        <td><span class="badge badge-done">95%</span></td>
       </tr>
       <tr>
         <td><strong>Shopify</strong></td>
@@ -317,14 +317,14 @@
         <td>eBay/Joom注文時の在庫自動更新<br><small style="color:#888;">InventoryEvent記録 + Product.status更新（Shopifyの実装を転用）</small></td>
         <td>小</td>
         <td>なし</td>
-        <td><span class="badge badge-todo">未着手</span></td>
+        <td><span class="badge badge-done">完了 (07d94f26)</span></td>
       </tr>
       <tr>
         <td>2</td>
-        <td>注文同期の自動スケジューラー<br><small style="color:#888;">order-sync.tsは存在するが自動実行トリガーがない</small></td>
+        <td>注文同期の自動スケジューラー<br><small style="color:#888;">scheduler.ts + worker-manager.tsで接続済み（4時間ごとJoom/eBay交互同期）</small></td>
         <td>小</td>
         <td>なし</td>
-        <td><span class="badge badge-todo">未着手</span></td>
+        <td><span class="badge badge-done">確認済み（既に実装済）</span></td>
       </tr>
       <tr>
         <td>3</td>
@@ -357,12 +357,12 @@
   </div>
 
   <div class="timeline">
-    <div class="timeline-item current">
-      <h3>Week 1: eBay/Joom注文処理の補完</h3>
-      <p>タスク1-2。Shopifyの実装をeBay/Joomに転用。</p>
-      <p><small style="color:#888;">AI工数: 0.5日 × バッファ1.5 = 1〜2日</small></p>
+    <div class="timeline-item done">
+      <h3>Week 1: eBay/Joom注文処理の補完 ✅</h3>
+      <p>タスク1-2完了。InventoryEvent + Product.status='SOLD'追加、スケジューラー確認済み。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-04 commit 07d94f26</small></p>
     </div>
-    <div class="timeline-item future">
+    <div class="timeline-item current">
       <h3>Week 1-2: スクレイピング安全対策</h3>
       <p>タスク3。Proxy統合 + Stealth + ジッター + 緊急停止。</p>
       <p><small style="color:#888;">AI工数: 1.4日 × バッファ2.0 = 2〜3日</small></p>
@@ -478,7 +478,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-04</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-04 (Session 2)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
