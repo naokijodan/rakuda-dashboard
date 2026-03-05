@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-04 (Session 4)</div>
+  <div class="last-updated">最終更新: 2026-03-05 (Session 5)</div>
 </header>
 
 <nav>
@@ -109,16 +109,16 @@
     <div class="card">
       <h3>出品機能</h3>
       <div class="progress-container">
-        <div class="progress-bar progress-green" style="width: 90%;">90%</div>
+        <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>eBay/Joom/Shopify 全て出品成功済み</p>
+      <p>Joom本番出品テスト成功（Seiko Prospex $562.37 → ACTIVE）。為替レート計算バグ修正済み。3件PAUSED（Joom側で公開中）</p>
     </div>
     <div class="card">
       <h3>注文〜発送</h3>
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 90%;">90%</div>
       </div>
-      <p>eBay/Joom在庫自動更新接続済み（07d94f26）。定期同期スケジューラーも稼働中</p>
+      <p>eBay/Joom在庫自動更新接続済み。定期同期スケジューラー稼働中（在庫3回/日、注文4h毎、価格6h毎）</p>
     </div>
     <div class="card">
       <h3>スクレイピング安全対策</h3>
@@ -375,18 +375,19 @@
       <p>タスク3。Stealth/UA回転/ジッター/Circuit Breaker/CAPTCHA検出/段階的拡大 実装完了。Smartproxy契約待ちのみ残存。</p>
       <p><small style="color:#10b981;">完了: 2026-03-04 commit 6b8dbcc0</small></p>
     </div>
-    <div class="timeline-item future">
-      <h3>Week 2: 本番デプロイ + テスト</h3>
-      <p>タスク4。最新コードをVultrに反映、動作確認。</p>
-      <p><small style="color:#888;">AI工数: 0.5日 × バッファ3.0 = 1〜2日（デプロイは過去+300%乖離）</small></p>
+    <div class="timeline-item done">
+      <h3>Week 2: 本番デプロイ + テスト ✅</h3>
+      <p>タスク4完了。Worker/API/Webを複数回デプロイ。為替レート計算バグ修正、Dockerfile turbo build修正、docker-entrypoint.shでマイグレーション自動適用追加。Joom本番出品テスト成功（Job #38: Seiko Prospex $562.37）。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-05 commit 1af9233b</small></p>
     </div>
-    <div class="timeline-item future">
-      <h3>Week 2-3: 想定外の問題対応</h3>
-      <p>過去の実績から必ず発生。2〜3日のバッファ。</p>
+    <div class="timeline-item done">
+      <h3>Week 2: 想定外の問題対応 ✅</h3>
+      <p>prisma.joomListing残存問題（Dockerキャッシュ）、為替レート計算バグ（costJpy / rate → costJpy * rate）、Turboキャッシュ無効化の正しい方法（ENV変数→CLIフラグ）。全て解決済み。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-05</small></p>
     </div>
-    <div class="timeline-item future">
-      <h3>Week 3: 運用開始</h3>
-      <p>eBay/Joomで実際に出品開始。段階的拡大（50商品/日から）。</p>
+    <div class="timeline-item current">
+      <h3>Week 3: 運用開始準備</h3>
+      <p>残り3件のPAUSEDリスティングの状態修正。Casio G-SHOCK価格再計算。本格出品開始（50商品/日から段階的拡大）。</p>
     </div>
   </div>
 
@@ -428,9 +429,9 @@
       <p style="color:#10b981;margin-top:8px;"><strong>対策:</strong> 全レイヤーUPPERCASE統一済み</p>
     </div>
     <div class="card">
-      <h3>5. Coolifyデプロイstuck</h3>
-      <p>in_progressで永遠に止まる</p>
-      <p style="color:#10b981;margin-top:8px;"><strong>対策:</strong> POST /stop APIで復旧、concurrent_builds=1</p>
+      <h3>5. Turboキャッシュで古いコード残存</h3>
+      <p>TURBO_FORCE=1 env変数は無効。古いPrismaクライアント（joomListing）が残存</p>
+      <p style="color:#10b981;margin-top:8px;"><strong>対策:</strong> npx turbo run build --force（CLIフラグ）を使用</p>
     </div>
   </div>
 
@@ -486,7 +487,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-04 (Session 4)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-05 (Session 5)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
