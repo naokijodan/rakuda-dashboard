@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-06 (Session 7)</div>
+  <div class="last-updated">最終更新: 2026-03-06 (Session 8)</div>
 </header>
 
 <nav>
@@ -356,10 +356,10 @@
       </tr>
       <tr>
         <td>7</td>
-        <td>価格計算エンジン再設計 Phase 2<br><small style="color:#888;">eBayPricingStrategy実装 + V3スプレッドシート検証</small></td>
+        <td>価格計算エンジン再設計 Phase 2<br><small style="color:#888;">EbayPricingStrategy（DDP計算・V3移植）、テスト4件合格、全8テスト合格</small></td>
         <td>中</td>
         <td>Phase 1</td>
-        <td><span class="badge badge-todo">次のタスク</span></td>
+        <td><span class="badge badge-done">完了 (00efe61c)</span></td>
       </tr>
     </tbody>
   </table>
@@ -414,9 +414,10 @@
       <p>PricingPipeline基盤、JoomPricingStrategy、SettingsResolver、Prismaマイグレーション完了。テスト全合格。</p>
       <p><small style="color:#10b981;">完了: 2026-03-06 commit 2e97f80e</small></p>
     </div>
-    <div class="timeline-item current">
-      <h3>Week 4: 価格計算エンジン Phase 2 — eBay対応 + V3シート検証</h3>
-      <p>eBayPricingStrategy実装、V3スプレッドシートとの価格検証。Phase 1基盤の上にeBay固有ロジックを追加。</p>
+    <div class="timeline-item done">
+      <h3>Week 4: 価格計算エンジン Phase 2 — eBay対応 完了 ✅</h3>
+      <p>EbayPricingStrategy（DDP/DDU/関税計算）、V3ロジック移植、テスト4件合格。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-06 commit 00efe61c</small></p>
     </div>
     <div class="timeline-item future">
       <h3>Week 4-5: 本格運用開始</h3>
@@ -520,7 +521,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-06 (Session 7)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-06 (Session 8)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
