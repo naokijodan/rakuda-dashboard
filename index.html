@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-05 (Session 6)</div>
+  <div class="last-updated">最終更新: 2026-03-06 (Session 7)</div>
 </header>
 
 <nav>
@@ -347,6 +347,20 @@
         <td>ユーザー作業</td>
         <td><span class="badge badge-wait">外部待ち</span></td>
       </tr>
+      <tr>
+        <td>6</td>
+        <td>価格計算エンジン再設計 Phase 1<br><small style="color:#888;">PricingPipeline基盤、JoomPricingStrategy、SettingsResolver、Prismaマイグレーション、テスト全合格</small></td>
+        <td>中</td>
+        <td>なし</td>
+        <td><span class="badge badge-done">完了 (2e97f80e)</span></td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>価格計算エンジン再設計 Phase 2<br><small style="color:#888;">eBayPricingStrategy実装 + V3スプレッドシート検証</small></td>
+        <td>中</td>
+        <td>Phase 1</td>
+        <td><span class="badge badge-todo">次のタスク</span></td>
+      </tr>
     </tbody>
   </table>
 
@@ -395,8 +409,17 @@
       <p>ALTER TYPE ADD VALUEのトランザクション制約で元のmigrationが部分適用。修復migration (20260305080000) 作成→デプロイ→カラム追加確認。ordersエンドポイント正常動作（24件）。</p>
       <p><small style="color:#10b981;">完了: 2026-03-05 Session 6</small></p>
     </div>
+    <div class="timeline-item done">
+      <h3>Week 3: 価格計算エンジン再設計 Phase 1 完了 ✅</h3>
+      <p>PricingPipeline基盤、JoomPricingStrategy、SettingsResolver、Prismaマイグレーション完了。テスト全合格。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-06 commit 2e97f80e</small></p>
+    </div>
     <div class="timeline-item current">
-      <h3>Week 3-4: 本格運用開始</h3>
+      <h3>Week 4: 価格計算エンジン Phase 2 — eBay対応 + V3シート検証</h3>
+      <p>eBayPricingStrategy実装、V3スプレッドシートとの価格検証。Phase 1基盤の上にeBay固有ロジックを追加。</p>
+    </div>
+    <div class="timeline-item future">
+      <h3>Week 4-5: 本格運用開始</h3>
       <p>全6リスティングACTIVE（Joom 4, Shopify 1, eBay 1）。本格出品開始（50商品/日から段階的拡大）。</p>
     </div>
   </div>
@@ -497,7 +520,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-05 (Session 6)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-06 (Session 7)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
