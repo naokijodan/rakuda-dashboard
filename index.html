@@ -387,12 +387,17 @@
     </div>
     <div class="timeline-item done">
       <h3>Week 3: PAUSEDリスティング修正 + 価格再計算 ✅</h3>
-      <p>4件のPAUSEDリスティングをACTIVEに一括更新（bulk API）。enrichment pricing再計算（costUsd: 8593750→352）。sourceChannelマイグレーション未適用を発見→API再デプロイで対応中。</p>
+      <p>4件のPAUSEDリスティングをACTIVEに一括更新（bulk API）。enrichment pricing再計算（costUsd: 8593750→352）。sourceChannelマイグレーション未適用を発見→修復migration作成・デプロイ完了。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-05 Session 6</small></p>
+    </div>
+    <div class="timeline-item done">
+      <h3>Week 3: sourceChannelマイグレーション修復 ✅</h3>
+      <p>ALTER TYPE ADD VALUEのトランザクション制約で元のmigrationが部分適用。修復migration (20260305080000) 作成→デプロイ→カラム追加確認。ordersエンドポイント正常動作（24件）。</p>
       <p><small style="color:#10b981;">完了: 2026-03-05 Session 6</small></p>
     </div>
     <div class="timeline-item current">
-      <h3>Week 3: sourceChannelマイグレーション + 本格運用開始</h3>
-      <p>API再デプロイ完了後にsourceChannelマイグレーション適用確認。本格出品開始（50商品/日から段階的拡大）。</p>
+      <h3>Week 3-4: 本格運用開始</h3>
+      <p>全6リスティングACTIVE（Joom 4, Shopify 1, eBay 1）。本格出品開始（50商品/日から段階的拡大）。</p>
     </div>
   </div>
 
