@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-05 (Session 5)</div>
+  <div class="last-updated">最終更新: 2026-03-05 (Session 6)</div>
 </header>
 
 <nav>
@@ -111,7 +111,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>Joom本番出品テスト成功（Seiko Prospex $562.37 → ACTIVE）。為替レート計算バグ修正済み。3件PAUSED（Joom側で公開中）</p>
+      <p>Joom本番出品4件全てACTIVE（DB修正完了）。為替レート計算バグ修正済み。enrichment pricing再計算済（costUsd: 352 正常値）</p>
     </div>
     <div class="card">
       <h3>注文〜発送</h3>
@@ -385,9 +385,14 @@
       <p>prisma.joomListing残存問題（Dockerキャッシュ）、為替レート計算バグ（costJpy / rate → costJpy * rate）、Turboキャッシュ無効化の正しい方法（ENV変数→CLIフラグ）。全て解決済み。</p>
       <p><small style="color:#10b981;">完了: 2026-03-05</small></p>
     </div>
+    <div class="timeline-item done">
+      <h3>Week 3: PAUSEDリスティング修正 + 価格再計算 ✅</h3>
+      <p>4件のPAUSEDリスティングをACTIVEに一括更新（bulk API）。enrichment pricing再計算（costUsd: 8593750→352）。sourceChannelマイグレーション未適用を発見→API再デプロイで対応中。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-05 Session 6</small></p>
+    </div>
     <div class="timeline-item current">
-      <h3>Week 3: 運用開始準備</h3>
-      <p>残り3件のPAUSEDリスティングの状態修正。Casio G-SHOCK価格再計算。本格出品開始（50商品/日から段階的拡大）。</p>
+      <h3>Week 3: sourceChannelマイグレーション + 本格運用開始</h3>
+      <p>API再デプロイ完了後にsourceChannelマイグレーション適用確認。本格出品開始（50商品/日から段階的拡大）。</p>
     </div>
   </div>
 
@@ -487,7 +492,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-05 (Session 5)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-05 (Session 6)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
