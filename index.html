@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-06 (Session 11)</div>
+  <div class="last-updated">最終更新: 2026-03-07 (Session 12)</div>
 </header>
 
 <nav>
@@ -111,7 +111,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>Joom本番出品4件全てACTIVE（DB修正完了）。為替レート計算バグ修正済み。enrichment pricing再計算済（costUsd: 352 正常値）</p>
+      <p>Joom本番出品4件。Joom API側でPAUSED検出→Worker再デプロイで再有効化中。価格計算エンジン全面刷新済み（PricingPipeline）</p>
     </div>
     <div class="card">
       <h3>注文〜発送</h3>
@@ -132,7 +132,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>本番デプロイ済み、テスト1,541件通過（API 344 + Worker 1,197）、TSエラー0件</p>
+      <p>本番デプロイ済み、CIテスト1,322件全通過（Session 12で36件のテスト失敗を修正）、TSエラー0件</p>
     </div>
   </div>
 </section>
@@ -467,9 +467,14 @@
       <p>joom-api.ts updatePriceでprice型修正(number→String)。joom-publish-serviceを新PricingPipelineに移行。Chrome拡張ヤフオクセレクタをNext.js対応に全面書き換え。メルカリ出品者セレクタにフォールバック追加。manifest.json host_permissions修正。Playwrightで実商品ページ検証済み。</p>
       <p><small style="color:#10b981;">完了: 2026-03-06 commit cb7da6fe</small></p>
     </div>
+    <div class="timeline-item done">
+      <h3>Week 5: CIテスト全修正 + Joom再有効化 + codex整理</h3>
+      <p>36件のCIテスト失敗を修正（6根本原因: puppeteer-extra mock不整合、captcha-detector mock欠落、scraping-daily-limit/circuit-breaker mock欠落、sourceChannel assertion誤り、joom-api/image系mock欠落、$transaction mock欠落）。1,322テスト全通過。Joom 4件PAUSEDをAPI再有効化ジョブ投入→Worker再デプロイ中。stale codexタスクファイル40件削除。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-07 Session 12 commits 4e159ef6, e618d1a2</small></p>
+    </div>
     <div class="timeline-item future">
-      <h3>Week 4-5: 本格運用開始</h3>
-      <p>全6リスティングACTIVE（Joom 4, Shopify 1, eBay 1）。本格出品開始（50商品/日から段階的拡大）。</p>
+      <h3>Week 5-6: 本格運用開始</h3>
+      <p>Joom 4件の再有効化確認後、本格出品開始（50商品/日から段階的拡大）。Chrome拡張手動テスト→Smartproxy契約。</p>
     </div>
   </div>
 
@@ -514,6 +519,13 @@
       <h3>5. Turboキャッシュで古いコード残存</h3>
       <p>TURBO_FORCE=1 env変数は無効。古いPrismaクライアント（joomListing）が残存</p>
       <p style="color:#10b981;margin-top:8px;"><strong>対策:</strong> npx turbo run build --force（CLIフラグ）を使用</p>
+    </div>
+  </div>
+
+    <div class="card">
+      <h3>6. Joom API側でPAUSED検出</h3>
+      <p>joom-status-sync定期ジョブがJoom API側のdisabled状態を検出→DB側をPAUSEDに更新。SBDC101の歴史的価格バグ(13M USD)が原因の可能性</p>
+      <p style="color:#f59e0b;margin-top:8px;"><strong>対策:</strong> Worker再デプロイ後にenable APIジョブ処理で復旧予定</p>
     </div>
   </div>
 
@@ -569,7 +581,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-06 (Session 11)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-07 (Session 12)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
