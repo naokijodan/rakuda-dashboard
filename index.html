@@ -368,6 +368,13 @@
         <td>Phase 2</td>
         <td><span class="badge badge-done">完了 (23b8c1a6)</span></td>
       </tr>
+      <tr>
+        <td>9</td>
+        <td>価格計算エンジン再設計 Phase 4<br><small style="color:#888;">既存パイプライン統合（calculatePrice→PricingPipeline移行3ファイル）、PRICE_DEFAULTSにeBay関税パラメータ追加、settings-resolverフォールバック更新</small></td>
+        <td>中</td>
+        <td>Phase 3</td>
+        <td><span class="badge badge-done">完了 (a04e607b)</span></td>
+      </tr>
     </tbody>
   </table>
 
@@ -430,6 +437,11 @@
       <h3>Week 4: 価格計算エンジン Phase 3 — 送料テーブル連携 ✅</h3>
       <p>ShippingRateEntryテーブルからの送料取得をnormalizerに統合。shippingMethod+weightでDB検索→フォールバック。テスト4件追加、全12テスト合格。</p>
       <p><small style="color:#10b981;">完了: 2026-03-06 commit 23b8c1a6</small></p>
+    </div>
+    <div class="timeline-item done">
+      <h3>Week 4: 価格計算エンジン Phase 4 — 既存パイプライン統合 ✅</h3>
+      <p>旧calculatePrice→新PricingPipeline移行（publish.ts, price-sync.ts×2）。PRICE_DEFAULTSにeBay関税パラメータ追加（dutyRate=15%, dutyProcessingFeeRate=2.1%）。settings-resolverフォールバック更新。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-06 commit a04e607b</small></p>
     </div>
     <div class="timeline-item future">
       <h3>Week 4-5: 本格運用開始</h3>
