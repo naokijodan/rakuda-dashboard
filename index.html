@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-06 (Session 9)</div>
+  <div class="last-updated">最終更新: 2026-03-06 (Session 10)</div>
 </header>
 
 <nav>
@@ -132,7 +132,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>本番デプロイ済み、テスト2,342件通過、TSエラー0件</p>
+      <p>本番デプロイ済み、テスト1,541件通過（API 344 + Worker 1,197）、TSエラー0件</p>
     </div>
   </div>
 </section>
@@ -375,6 +375,20 @@
         <td>Phase 3</td>
         <td><span class="badge badge-done">完了 (a04e607b)</span></td>
       </tr>
+      <tr>
+        <td>10</td>
+        <td>ShippingRateEntryシードデータ投入<br><small style="color:#888;">EP/EL/EMS/CF/CD/CE 全88件の送料データをseed.tsに追加（日本郵便2024年料金表ベース）。upsertで冪等性確保</small></td>
+        <td>小</td>
+        <td>Phase 3</td>
+        <td><span class="badge badge-done">完了 (ca461323)</span></td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>旧price-calculator.ts完全削除<br><small style="color:#888;">旧エンジン299行+テスト340行削除。4テストファイルを新PricingPipelineモックに移行。失敗テスト50→30に改善</small></td>
+        <td>小</td>
+        <td>Phase 4完了後</td>
+        <td><span class="badge badge-done">完了 (ca461323)</span></td>
+      </tr>
     </tbody>
   </table>
 
@@ -442,6 +456,11 @@
       <h3>Week 4: 価格計算エンジン Phase 4 — 既存パイプライン統合 ✅</h3>
       <p>旧calculatePrice→新PricingPipeline移行（publish.ts, price-sync.ts×2）。PRICE_DEFAULTSにeBay関税パラメータ追加（dutyRate=15%, dutyProcessingFeeRate=2.1%）。settings-resolverフォールバック更新。</p>
       <p><small style="color:#10b981;">完了: 2026-03-06 commit a04e607b</small></p>
+    </div>
+    <div class="timeline-item done">
+      <h3>Week 4: ShippingRateEntryシードデータ + 旧price-calculator削除</h3>
+      <p>送料テーブル88件投入（EP/EL/EMS/CF/CD/CE）。旧price-calculator.ts完全削除、テスト4ファイルを新PricingPipelineに移行。失敗テスト50→30に改善。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-06 commit ca461323</small></p>
     </div>
     <div class="timeline-item future">
       <h3>Week 4-5: 本格運用開始</h3>
@@ -545,7 +564,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-06 (Session 9)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-06 (Session 10)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
