@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-06 (Session 8)</div>
+  <div class="last-updated">最終更新: 2026-03-06 (Session 9)</div>
 </header>
 
 <nav>
@@ -361,6 +361,13 @@
         <td>Phase 1</td>
         <td><span class="badge badge-done">完了 (00efe61c)</span></td>
       </tr>
+      <tr>
+        <td>8</td>
+        <td>価格計算エンジン再設計 Phase 3<br><small style="color:#888;">ShippingRateEntry連携、normalizer送料テーブルDB化、フォールバック対応、テスト4件追加・全12テスト合格</small></td>
+        <td>小</td>
+        <td>Phase 2</td>
+        <td><span class="badge badge-done">完了 (23b8c1a6)</span></td>
+      </tr>
     </tbody>
   </table>
 
@@ -418,6 +425,11 @@
       <h3>Week 4: 価格計算エンジン Phase 2 — eBay対応 完了 ✅</h3>
       <p>EbayPricingStrategy（DDP/DDU/関税計算）、V3ロジック移植、テスト4件合格。</p>
       <p><small style="color:#10b981;">完了: 2026-03-06 commit 00efe61c</small></p>
+    </div>
+    <div class="timeline-item done">
+      <h3>Week 4: 価格計算エンジン Phase 3 — 送料テーブル連携 ✅</h3>
+      <p>ShippingRateEntryテーブルからの送料取得をnormalizerに統合。shippingMethod+weightでDB検索→フォールバック。テスト4件追加、全12テスト合格。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-06 commit 23b8c1a6</small></p>
     </div>
     <div class="timeline-item future">
       <h3>Week 4-5: 本格運用開始</h3>
@@ -521,7 +533,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-06 (Session 8)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-06 (Session 9)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
