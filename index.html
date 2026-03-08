@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-08 (Session 18)</div>
+  <div class="last-updated">最終更新: 2026-03-09 (Session 22)</div>
 </header>
 
 <nav>
@@ -111,7 +111,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>Joom本番出品4件。Joom API側でPAUSED検出→Worker再デプロイで再有効化中。価格計算エンジン全面刷新済み（PricingPipeline）</p>
+      <p>Joom画像パイプライン修正完了（WebP→JPEG + Cloudinary + camelCase）。DLQ全5キュー36件修正済み。OpenAI GPT-5互換性修正済み</p>
     </div>
     <div class="card">
       <h3>注文〜発送</h3>
@@ -132,7 +132,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>本番デプロイ済み（commit 422be25e）、テスト2,502件全通過、TSエラー0件、concurrent_builds=1設定済み</p>
+      <p>本番デプロイ済み（最新commit 4aad8679）、テスト1,235件全通過、TSエラー0件、concurrent_builds=1設定済み</p>
     </div>
   </div>
 </section>
@@ -389,12 +389,41 @@
         <td>Phase 4完了後</td>
         <td><span class="badge badge-done">完了 (ca461323)</span></td>
       </tr>
+      <tr>
+        <td>12</td>
+        <td>Joom画像パイプライン修正<br><small style="color:#888;">WebP→JPEG変換、Cloudinaryアップロード、API v3 camelCaseフィールド名修正。J1009/J1130解消</small></td>
+        <td>中</td>
+        <td>なし</td>
+        <td><span class="badge badge-done">完了 (f9526e4e)</span></td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td>DLQ全5キュー修正<br><small style="color:#888;">pricing/scrape/inventory/order/image計36件。リトライ+Cloudinaryフォールバック追加</small></td>
+        <td>中</td>
+        <td>なし</td>
+        <td><span class="badge badge-done">完了 (4aad8679)</span></td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td>OpenAI GPT-5互換性修正<br><small style="color:#888;">temperature削除(15ファイル)、max_tokens→max_completion_tokens(11ファイル)</small></td>
+        <td>小</td>
+        <td>なし</td>
+        <td><span class="badge badge-done">完了 (28daca33)</span></td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td>Joomブランド認証申請<br><small style="color:#888;">J1131解消に必要。Joomマーチャントポータルからの認証申請（Nintendo, Seiko等）</small></td>
+        <td>小</td>
+        <td>ユーザー作業</td>
+        <td><span class="badge badge-wait">外部待ち</span></td>
+      </tr>
     </tbody>
   </table>
 
   <div class="alert alert-warning">
-    <strong>残ブロッカー (1件):</strong><br>
-    <strong>Smartproxy契約</strong>: https://smartproxy.com/ （月額約$90）。コード側はPROXY_HOST/PORT/USER/PASSを設定するだけで接続可能。デプロイは完了済み。
+    <strong>残ブロッカー (2件):</strong><br>
+    1. <strong>Smartproxy契約</strong>: https://smartproxy.com/ （月額約$90）。コード側はPROXY_HOST/PORT/USER/PASSを設定するだけで接続可能。<br>
+    2. <strong>Joomブランド認証</strong>: Joomマーチャントポータルでブランド使用許可の申請が必要（Nintendo, Seiko等）。
   </div>
 </section>
 
@@ -589,7 +618,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-08 (Session 18)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-09 (Session 22)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
