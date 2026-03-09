@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-09 (Session 22)</div>
+  <div class="last-updated">最終更新: 2026-03-09 (Session 23)</div>
 </header>
 
 <nav>
@@ -132,7 +132,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>本番デプロイ済み（最新commit 4aad8679）、テスト1,235件全通過、TSエラー0件、concurrent_builds=1設定済み</p>
+      <p>本番デプロイ済み（最新commit fc76a321）、テスト1,235件全通過、TSエラー0件、concurrent_builds=1設定済み。Session 23でスタックデプロイ解消→API/Worker再デプロイ完了</p>
     </div>
   </div>
 </section>
@@ -501,9 +501,14 @@
       <p>36件のCIテスト失敗を修正（6根本原因: puppeteer-extra mock不整合、captcha-detector mock欠落、scraping-daily-limit/circuit-breaker mock欠落、sourceChannel assertion誤り、joom-api/image系mock欠落、$transaction mock欠落）。1,322テスト全通過。Joom 4件PAUSEDをAPI再有効化ジョブ投入→Worker再デプロイ中。stale codexタスクファイル40件削除。</p>
       <p><small style="color:#10b981;">完了: 2026-03-07 Session 12 commits 4e159ef6, e618d1a2</small></p>
     </div>
+    <div class="timeline-item done">
+      <h3>Week 5: VPSデプロイ復旧（Session 23）</h3>
+      <p>スタックデプロイ（mcowwc48k8gks8wsgwsckgoo）は自然解消済みを確認。API + Worker を最新 fc76a321 で再デプロイ完了。ヘルスチェック正常（DB ok, Redis ok, 1ms応答）。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-09 Session 23</small></p>
+    </div>
     <div class="timeline-item future">
       <h3>Week 5-6: 本格運用開始</h3>
-      <p>Joom 4件の再有効化確認後、本格出品開始（50商品/日から段階的拡大）。Chrome拡張手動テスト→Smartproxy契約。</p>
+      <p>Joomブランド認証申請（ユーザー作業）→テスト商品クリーンアップ→eBay含むフルパイプラインテスト→本格出品開始（50商品/日から段階的拡大）。</p>
     </div>
   </div>
 
