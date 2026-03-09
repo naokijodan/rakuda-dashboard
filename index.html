@@ -132,7 +132,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>本番デプロイ済み（最新commit fc76a321）、テスト1,235件全通過、TSエラー0件、concurrent_builds=1設定済み。Session 23でスタックデプロイ解消→API/Worker再デプロイ完了</p>
+      <p>本番デプロイ済み（最新commit e8a4a860）、テスト2,502件通過（1件統合テスト環境問題）、TSエラー0件。Session 23でeBay画像パイプライン修正→API/Worker再デプロイ完了</p>
     </div>
   </div>
 </section>
@@ -502,9 +502,9 @@
       <p><small style="color:#10b981;">完了: 2026-03-07 Session 12 commits 4e159ef6, e618d1a2</small></p>
     </div>
     <div class="timeline-item done">
-      <h3>Week 5: VPSデプロイ復旧（Session 23）</h3>
-      <p>スタックデプロイ（mcowwc48k8gks8wsgwsckgoo）は自然解消済みを確認。API + Worker を最新 fc76a321 で再デプロイ完了。ヘルスチェック正常（DB ok, Redis ok, 1ms応答）。</p>
-      <p><small style="color:#10b981;">完了: 2026-03-09 Session 23</small></p>
+      <h3>Week 5: VPSデプロイ復旧 + eBay画像パイプライン修正（Session 23）</h3>
+      <p>スタックデプロイ解消→API/Worker再デプロイ。eBay画像パイプラインの設計ギャップを修正（marketplaceData.ebayImages保存追加、EnrichmentTask.optimizedImages最優先参照）。翻訳機能が実装済み・稼働中であることを確認（MEMORY更新）。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-09 commits e8a4a860, 52c73afb</small></p>
     </div>
     <div class="timeline-item future">
       <h3>Week 5-6: 本格運用開始</h3>
