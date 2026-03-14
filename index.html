@@ -84,7 +84,7 @@
 <header>
   <h1>RAKUDA</h1>
   <p>越境EC自動化システム - プロジェクトダッシュボード</p>
-  <div class="last-updated">最終更新: 2026-03-09 (Session 23)</div>
+  <div class="last-updated">最終更新: 2026-03-14 (Session 43)</div>
 </header>
 
 <nav>
@@ -111,7 +111,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>Joom画像パイプライン修正完了（WebP→JPEG + Cloudinary + camelCase）。DLQ全5キュー36件修正済み。OpenAI GPT-5互換性修正済み</p>
+      <p>Joom画像パイプライン修正完了。Joomトップ画像白背景処理（rembg）実装済み。DLQ全5キュー修正済み</p>
     </div>
     <div class="card">
       <h3>注文〜発送</h3>
@@ -132,7 +132,7 @@
       <div class="progress-container">
         <div class="progress-bar progress-green" style="width: 95%;">95%</div>
       </div>
-      <p>本番デプロイ済み（最新commit e8a4a860）、テスト2,502件通過（1件統合テスト環境問題）、TSエラー0件。Session 23でeBay画像パイプライン修正→API/Worker再デプロイ完了</p>
+      <p>本番デプロイ済み。全21ページ100%完成（Session 43）。テスト306件通過（フロントページ）。設定画面1599行→440行に分割</p>
     </div>
   </div>
 </section>
@@ -506,8 +506,13 @@
       <p>スタックデプロイ解消→API/Worker再デプロイ。eBay画像パイプラインの設計ギャップを修正（marketplaceData.ebayImages保存追加、EnrichmentTask.optimizedImages最優先参照）。翻訳機能が実装済み・稼働中であることを確認（MEMORY更新）。</p>
       <p><small style="color:#10b981;">完了: 2026-03-09 commits e8a4a860, 52c73afb</small></p>
     </div>
+    <div class="timeline-item done">
+      <h3>Week 6: 全21ページ100%完成（Session 36-43）</h3>
+      <p>21ページ全てに型定義・Zodバリデーション・エラー表示統一(addToast)・a11y属性・テストを追加。/settings(1599行)を440行+3ファイルに分割。/products(1002行)を788行に整理。テスト306件全通過。</p>
+      <p><small style="color:#10b981;">完了: 2026-03-14 Session 43 commits 4f76c493, 121cd688</small></p>
+    </div>
     <div class="timeline-item future">
-      <h3>Week 5-6: 本格運用開始</h3>
+      <h3>Week 7以降: 本格運用開始</h3>
       <p>Joomブランド認証申請（ユーザー作業）→テスト商品クリーンアップ→eBay含むフルパイプラインテスト→本格出品開始（50商品/日から段階的拡大）。</p>
     </div>
   </div>
@@ -623,7 +628,7 @@
 </div>
 
 <footer>
-  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-09 (Session 22)</p>
+  <p>RAKUDA Project Dashboard | 最終更新: 2026-03-14 (Session 43)</p>
   <p>各セッション開始時にこのダッシュボードを確認・更新すること</p>
   <p><a href="https://github.com/naokijodan/rakuda">GitHub Repository</a></p>
 </footer>
